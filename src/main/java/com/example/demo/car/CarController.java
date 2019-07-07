@@ -2,6 +2,7 @@ package com.example.demo.car;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
+
 @RestController
 @RequestMapping("/cars")
+@Api(value="Car Controller")
 public class CarController {
 
+	@ApiOperation(value = "Get the list of cars")
 	@GetMapping
 	public List<Car> getCars() {
 		return Arrays.asList(new Car[]{
@@ -24,9 +33,25 @@ public class CarController {
 		});
 	}
 
-	@PostMapping("/repair/")
-	public void repairCar(@RequestBody Car car) {
+	@ApiOperation(value = "Repair the car", consumes = "application/json")
+	@PostMapping("/repair")
+	public String repairCar(
+		@ApiParam(
+			required = true,
+			value="Workaround: {\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}",
+			examples = @Example(value = {
+				@ExampleProperty(value = "{\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}")
+			})
+		)
+		@RequestBody Map<String, String> body
+	) {
 		
+		return String.format(
+			"Your car will be repaired at \"%s\" on %s.",
+			body.get("where"),
+			body.get("when")
+		);
+
 	}
 
 }
