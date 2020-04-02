@@ -1,0 +1,140 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Springfox Swagger2 Issue",
+    "version": "1.0.0",
+    "title": "Spring Boot REST API",
+    "contact": {
+      "name": "Just an Example",
+      "url": "https://www.example.com",
+      "email": "info@example.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "car-controller",
+      "description": "Car Controller"
+    }
+  ],
+  "paths": {
+    "/cars": {
+      "get": {
+        "tags": [
+          "car-controller"
+        ],
+        "summary": "Get the list of cars",
+        "operationId": "getCarsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/cars/repair": {
+      "post": {
+        "tags": [
+          "car-controller"
+        ],
+        "summary": "Repair the car",
+        "operationId": "repairCarUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Workaround: {\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "x-examples": {
+              "": "{\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Car": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The car id"
+        },
+        "brand": {
+          "type": "string",
+          "description": "The car brand"
+        },
+        "year": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The car year"
+        },
+        "color": {
+          "type": "string",
+          "description": "The car color"
+        }
+      },
+      "title": "Car",
+      "description": "This is the Car model."
+    }
+  }
+}
