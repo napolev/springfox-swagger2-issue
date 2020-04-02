@@ -1,0 +1,36 @@
+swagger: '2.0'
+info:
+  title: Spring Boot REST API
+  description: Springfox Swagger2 Issue
+  version: 1.0.0
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: car-controller
+    description: Car Controller
+paths:
+  /cars/repair:
+    post:
+      tags:
+        - car-controller
+      summary: Repair the car
+      operationId: repairCarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: 'When and where the user wants to repair his/her car.'
+          required: true
+          schema:
+            type: string
+            example:
+              when: "2010-01-01"
+              where: "Auto Repair Shop"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
