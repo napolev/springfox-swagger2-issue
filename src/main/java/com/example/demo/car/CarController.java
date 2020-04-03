@@ -2,7 +2,6 @@ package com.example.demo.car;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Example;
-import io.swagger.annotations.ExampleProperty;
 
 @RestController
 @RequestMapping("/cars")
@@ -38,18 +35,15 @@ public class CarController {
 	public String repairCar(
 		@ApiParam(
 			required = true,
-			value="Workaround: {\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}",
-			examples = @Example(value = {
-				@ExampleProperty(value = "{\"when\":\"2010-01-01\",\"where\":\"Auto Repair Shop\"}")
-			})
+			value="When and where the service should be provided."
 		)
-		@RequestBody Map<String, String> body
+		@RequestBody ServiceRequest request
 	) {
 		
 		return String.format(
-			"Your car will be repaired at \"%s\" on %s.",
-			body.get("where"),
-			body.get("when")
+			"Your car will be repaired on '%s' at '%s'.",
+			request.getWhen(),
+			request.getWhere()
 		);
 
 	}
